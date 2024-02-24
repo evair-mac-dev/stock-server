@@ -48,9 +48,9 @@ RSpec.describe PolygonApiService do
         [
           {
             item: "Price",
-            maximum: 150.0,
-            minimum: 125.0,
-            average: 155.0
+            maximum: "$150.0",
+            minimum: "$125.0",
+            average: "$155.0"
           },
           {
             item: "Volume",
@@ -73,7 +73,7 @@ RSpec.describe PolygonApiService do
 
     it 'returns an empty object for a ticker that does not exist' do
       service = PolygonApiService.new
-      expect(service.fetch_stock_data('NOEXISTE', '2023-01-01', '2023-01-31')).to eq({})
+      expect(service.fetch_stock_data('NOEXISTE', '2023-01-01', '2023-01-31')).to eq([])
     end
   end
 end

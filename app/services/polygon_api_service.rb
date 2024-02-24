@@ -18,7 +18,7 @@ class PolygonApiService
   private
 
   def consolidate_data(stock_data)
-    return {} if stock_data['results'].nil?
+    return [] if stock_data['results'].nil?
 
     max_high_price = stock_data['results'].first['h']
     min_low_price = stock_data['results'].first['l']
