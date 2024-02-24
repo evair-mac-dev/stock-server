@@ -1,3 +1,5 @@
+# frozen_string_literal: true
+
 require 'httparty'
 
 class PolygonApiService
@@ -5,7 +7,7 @@ class PolygonApiService
   base_uri 'https://api.polygon.io/v2'
 
   def initialize
-    @api_key = 'taIMgMrmnZ8SUZmdpq9_7ANRDxw3IPIx'
+    @api_key = ENV['POLYGON_API_KEY']
   end
 
   def fetch_stock_data(ticker, from_date, to_date)
@@ -14,8 +16,9 @@ class PolygonApiService
   end
 
   private
+
   def consolidate_data(stock_data)
-    return {} if stock_data['resultsCount'] == 0
+    return {} if stock_data['results'].nil?
 
     max_high_price = stock_data['results'].first['h']
     min_low_price = stock_data['results'].first['l']
@@ -23,7 +26,6 @@ class PolygonApiService
     min_volume = stock_data['results'].first['v']
     total_volume = 0
     total_vw_price = 0
-
 
     stock_data['results'].each do |day|
       max_high_price = day['h'] if day['h'] > max_high_price
@@ -39,13 +41,13 @@ class PolygonApiService
 
     [
       {
-        "item": "Price",
+        "item": 'Price',
         "maximum": max_high_price,
         "minimum": min_low_price,
         "average": average_price
       },
       {
-        "item": "Volume",
+        "item": 'Volume',
         "maximum": max_volume,
         "minimum": min_volume,
         "average": average_volume
