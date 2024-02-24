@@ -42,9 +42,9 @@ class PolygonApiService
     [
       {
         "item": 'Price',
-        "maximum": max_high_price,
-        "minimum": min_low_price,
-        "average": average_price
+        "maximum": "$#{max_high_price}",
+        "minimum": "$#{min_low_price}",
+        "average": "$#{average_price}"
       },
       {
         "item": 'Volume',
